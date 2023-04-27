@@ -20,23 +20,30 @@ public class Country {
         UN_GDP_per_capita = uN_GDP_per_capita;
     }
 
+   
     public static Country parseFrom(String countryRecord) throws CountryException {
         String[] elements = countryRecord.split(",");
         if (elements.length != 8) {
             throw new CountryException("Enter all elements of country!");
         }
-        String id = elements[0].trim();
-        String countryName = elements[1].trim();
-        String continent = elements[2].trim();
-        Double population = Double.parseDouble(elements[3].trim());
-        Double IMF_GDP = Double.parseDouble(elements[4].trim());
-        Double UN_GDP = Double.parseDouble(elements[5].trim());
-        Double IMF_GDP_per_capita = Double.parseDouble(elements[6].trim());
-        Double UN_GDP_per_capita = Double.parseDouble(elements[7].trim());
-
-        return new Country(id, countryName, continent, population, IMF_GDP, UN_GDP, IMF_GDP_per_capita,
-                UN_GDP_per_capita);
+       
+        return new Country(elements[0],
+        elements[1],
+        elements[2], 
+        Double.parseDouble(elements[3]), 
+        Double.parseDouble(elements[4]), 
+        Double.parseDouble(elements[5]), 
+        Double.parseDouble(elements[6]), 
+        Double.parseDouble(elements[7]));
     }
+ public String parseTo(){
+    return id + ", "+ countryName+ ", "+ continent +", "+ population+ ", "+ IMF_GDP+ ","+ UN_GDP+", "+ IMF_GDP_per_capita+ ", "+UN_GDP_per_capita;
+ }
+
+ public String parseTo(Country countryInstance){
+    return countryInstance.parseTo();
+ }
+
 
     public String getId() {
         return id;
