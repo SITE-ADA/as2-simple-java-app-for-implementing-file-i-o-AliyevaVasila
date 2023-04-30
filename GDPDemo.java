@@ -1,0 +1,76 @@
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class GDPDemo {
+    public static void main(String[] args) throws IOException {
+        String fileName = "data/countries.csv";
+
+        List<Country> countries = FileManager.loadCountries();
+
+        sort(countries, "continent", "ascending");
+
+        sort(countries, "countryName", "ascending");
+
+        FileManager.saveCountries(countries, "countriesSortedByContinent.csv");
+
+        // sort(countries, "population", "des");
+        // FileManager.saveCountries(countries, "countriesSortedByPopulation.csv");
+
+        List<Country> filteredCountries = filterByContinent(countries, "Oceania");
+        FileManager.saveCountries(filteredCountries, "countriesFilteredByContinent.csv");
+
+        
+
+        List<Country> filteredCountries2 = filterByPerCapita(filteredCountries, 40000.0, 50000.0);
+        FileManager.saveCountries(filteredCountries2, "countriesFilteredByPerCapita.csv");
+
+    }
+
+    public static void sort(List<Country> countries, String fieldName, String order) {
+        Comparator<Country> comparator = null;
+        switch (fieldName) {
+            case "continent":
+                comparator = (c1, c2) -> c1.getContinent().compareTo(c2.getContinent());
+                break;
+            case "countryName":
+                comparator = (c1, c2) -> c1.getCountryName().compareTo(c2.getCountryName());
+                break;
+            case "population":
+                comparator = (c1, c2) -> Double.compare(c1.getPopulation(), c2.getPopulation());
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid field name: " + fieldName);
+        }
+        switch (order) {
+            case "ascending":
+                Collections.sort(countries, comparator);
+                break;
+            case "des":
+                Collections.sort(countries, comparator.reversed());
+            default:
+                throw new IllegalArgumentException(
+                        "Invalid order: " + order + "enter either 'ascending' or 'des");
+
+        }
+    }
+
+    public static List<Country> filterByContinent(List<Country> countries, String continent) {
+
+        return countries.stream()
+                .filter(country -> country.getContinent().equals(continent))
+                .collect(Collectors.toList());
+
+    }
+
+    public static List<Country> filterByPerCapita(List<Country> countries, Double lower, Double upper) {
+
+        return countries.stream()
+                .filter(country -> country.getUN_GDP_per_capita() >= lower && country.getUN_GDP_per_capita() <= upper)
+                .collect(Collectors.toList());
+
+    }
+}
