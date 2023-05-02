@@ -17,7 +17,7 @@ public class Country {
         this.IMF_GDP = IMF_GDP;
         this.UN_GDP = UN_GDP;
         this.IMF_GDP_per_capita = IMF_GDP_per_capita;
-        this.UN_GDP_per_capita = UN_GDP_per_capita;
+        this.UN_GDP_per_capita = UN_GDP / population;
     }
 
     public static Country parseFrom(String countryRecord) throws CountryException {
