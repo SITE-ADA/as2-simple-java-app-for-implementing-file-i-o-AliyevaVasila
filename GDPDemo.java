@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 public class GDPDemo {
     public static void main(String[] args) throws IOException {
-        String fileName = "data/countries.csv";
 
         List<Country> countries = FileManager.loadCountries();
 
@@ -15,8 +14,8 @@ public class GDPDemo {
 
         FileManager.saveCountries(countries, "countriesSortedByContinent.csv");
 
-        // sort(countries, "population", "descending");
-        // FileManager.saveCountries(countries, "countriesSortedByPopulation.csv");
+        sort(countries, "population", "descending");
+        FileManager.saveCountries(countries, "countriesSortedByPopulation.csv");
 
         List<Country> filteredCountries = filterByContinent(countries, "Oceania");
         FileManager.saveCountries(filteredCountries, "countriesFilteredByContinent.csv");
@@ -49,6 +48,7 @@ public class GDPDemo {
                 break;
             case "descending":
                 Collections.sort(countries, comparator.reversed());
+                break;
             default:
                 throw new IllegalArgumentException(
                         "Invalid order: " + order + "enter either 'ascending' or 'descending");
