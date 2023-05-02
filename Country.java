@@ -22,9 +22,6 @@ public class Country {
 
     public static Country parseFrom(String countryRecord) throws CountryException {
         String[] token = countryRecord.split(",");
-        if (token.length != 8) {
-            throw new CountryException("Enter all elements of country!");
-        }
 
         return new Country(token[1],
                 token[2],

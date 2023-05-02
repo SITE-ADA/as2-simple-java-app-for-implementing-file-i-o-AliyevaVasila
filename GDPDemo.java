@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -12,12 +11,11 @@ public class GDPDemo {
         List<Country> countries = FileManager.loadCountries();
 
         sort(countries, "continent", "ascending");
-
         sort(countries, "countryName", "ascending");
 
         FileManager.saveCountries(countries, "countriesSortedByContinent.csv");
 
-        // sort(countries, "population", "des");
+        // sort(countries, "population", "descending");
         // FileManager.saveCountries(countries, "countriesSortedByPopulation.csv");
 
         List<Country> filteredCountries = filterByContinent(countries, "Oceania");
@@ -49,11 +47,11 @@ public class GDPDemo {
             case "ascending":
                 Collections.sort(countries, comparator);
                 break;
-            case "des":
+            case "descending":
                 Collections.sort(countries, comparator.reversed());
             default:
                 throw new IllegalArgumentException(
-                        "Invalid order: " + order + "enter either 'ascending' or 'des");
+                        "Invalid order: " + order + "enter either 'ascending' or 'descending");
 
         }
     }
