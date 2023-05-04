@@ -13,7 +13,7 @@ public class Country {
         this.id = id;
         this.countryName = countryName;
         this.continent = continent;
-        this.population = population;
+        this.population = population * 1000;
         this.IMF_GDP = IMF_GDP;
         this.UN_GDP = UN_GDP;
         this.IMF_GDP_per_capita = IMF_GDP_per_capita;
@@ -23,14 +23,18 @@ public class Country {
     public static Country parseFrom(String countryRecord) throws CountryException {
         String[] token = countryRecord.split(",");
 
-        return new Country(token[1],
-                token[2],
-                token[3],
-                Double.parseDouble(token[4]),
-                Double.parseDouble(token[5]),
-                Double.parseDouble(token[6]),
-                Double.parseDouble(token[7]),
-                Double.parseDouble(token[8]));
+        try {
+            return new Country(token[1],
+                    token[2],
+                    token[3],
+                    Double.parseDouble(token[4]),
+                    Double.parseDouble(token[5]),
+                    Double.parseDouble(token[6]),
+                    Double.parseDouble(token[7]),
+                    Double.parseDouble(token[8]));
+        } catch (Exception e) {
+            throw new CountryException(e.getMessage());
+        }
     }
 
     public String parseTo() {

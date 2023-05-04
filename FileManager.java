@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,16 +16,14 @@ public class FileManager {
 
     public static List<Country> loadCountries() throws IOException {
         if (!new File(COUNTRIES_DATA_FILE).exists()) {
-            throw new IOException("data file not found!");
+            throw new IOException("Data file not found!");
         }
-
-        List<Country> countries = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader("data/countries.csv"))) {
             String line = br.readLine();
             while ((line = br.readLine()) != null) {
                 try {
-                    countries.add(Country.parseFrom(line));
+                    COUNTRIES.add(Country.parseFrom(line));
                 } catch (Exception e) {
                     throw new IOException("Error while parsing country data from file");
                 }
@@ -30,14 +31,16 @@ public class FileManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return countries;
+        return COUNTRIES;
     }
 
     public static void saveCountries(List<Country> countries, String fileName) throws IOException {
 
         File outputFile = new File("data/" + fileName);
         if (outputFile.exists()) {
-            throw new IOException("File already exists!");
+            // throw new IOException("File already exists!");
+
+            fileName += LocalDateTime.now();
 
         }
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("data/" + fileName))) {

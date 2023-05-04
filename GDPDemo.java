@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -9,18 +10,23 @@ public class GDPDemo {
 
         List<Country> countries = FileManager.loadCountries();
 
-        sort(countries, "continent", "ascending");
-        sort(countries, "countryName", "ascending");
+        var copy = new ArrayList<>(countries);
 
-        FileManager.saveCountries(countries, "countriesSortedByContinent.csv");
+        sort(copy, "continent", "ascending");
+        FileManager.saveCountries(copy, "countriesSortedByContinent.csv");
+
+        sort(copy, "countryName", "ascending");
+        FileManager.saveCountries(copy, "countriesSortedByContryName.csv");
 
         sort(countries, "population", "descending");
-        FileManager.saveCountries(countries, "countriesSortedByPopulation.csv");
+        FileManager.saveCountries(copy, "countriesSortedByPopulation.csv");
 
-        List<Country> filteredCountries = filterByContinent(countries, "Oceania");
+        // sort(countries, "population", "normal");
+        // FileManager.saveCountries(copy, "countriesSortedByPopulation.csv"); //throws
+        // exception
+
+        List<Country> filteredCountries = filterByContinent(copy, "Oceania");
         FileManager.saveCountries(filteredCountries, "countriesFilteredByContinent.csv");
-
-        
 
         List<Country> filteredCountries2 = filterByPerCapita(filteredCountries, 40000.0, 50000.0);
         FileManager.saveCountries(filteredCountries2, "countriesFilteredByPerCapita.csv");
@@ -51,7 +57,7 @@ public class GDPDemo {
                 break;
             default:
                 throw new IllegalArgumentException(
-                        "Invalid order: " + order + "enter either 'ascending' or 'descending");
+                        "Invalid order: '" + order + "' - enter either 'ascending' or 'descending");
 
         }
     }
