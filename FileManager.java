@@ -4,9 +4,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +39,8 @@ public class FileManager {
         if (outputFile.exists()) {
             // throw new IOException("File already exists!");
 
-            fileName += LocalDateTime.now();
-
+            fileName += LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh-mm-ss"));
+            System.out.println(fileName);
         }
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("data/" + fileName))) {
             bw.write("id,countryName,continent,population,IMF_GDP,UN_GDP,IMF_GDP_per_capita,UN_GDP_per_capita");
