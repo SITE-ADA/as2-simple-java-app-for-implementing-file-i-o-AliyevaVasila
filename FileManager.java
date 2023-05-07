@@ -40,7 +40,7 @@ public class FileManager {
             // throw new IOException("File already exists!");
 
             fileName += LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh-mm-ss"));
-            System.out.println(fileName);
+            // System.out.println(fileName);
         }
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("data/" + fileName))) {
             bw.write("id,countryName,continent,population,IMF_GDP,UN_GDP,IMF_GDP_per_capita,UN_GDP_per_capita");
@@ -50,7 +50,7 @@ public class FileManager {
                 bw.newLine();
             }
         } catch (IOException e) {
-            throw new IOException("Error while writing country data");
+            throw new IOException("Error while writing country data!");
         }
 
     }
