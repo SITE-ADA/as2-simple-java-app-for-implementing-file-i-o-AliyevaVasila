@@ -28,7 +28,7 @@ public class GDPDemo {
         List<Country> filteredCountries = filterByContinent(copy, "Oceania");
         FileManager.saveCountries(filteredCountries, "countriesFilteredByContinent.csv");
 
-        List<Country> filteredCountries2 = filterByPerCapita(filteredCountries, 40000.0, 50000.0);
+        List<Country> filteredCountries2 = filterByPerCapita(copy, 40000.0, 50000.0);
         FileManager.saveCountries(filteredCountries2, "countriesFilteredByPerCapita.csv");
 
     }

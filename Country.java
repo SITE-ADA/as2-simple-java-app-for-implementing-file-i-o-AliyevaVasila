@@ -16,7 +16,7 @@ public class Country {
         this.population = population * 1000;
         this.IMF_GDP = IMF_GDP;
         this.UN_GDP = UN_GDP;
-        this.IMF_GDP_per_capita = IMF_GDP_per_capita;
+        this.IMF_GDP_per_capita = IMF_GDP / population;
         this.UN_GDP_per_capita = UN_GDP / population;
     }
 
