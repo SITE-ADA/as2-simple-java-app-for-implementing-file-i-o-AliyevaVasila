@@ -18,7 +18,7 @@ public class GDPDemo {
         sort(copy, "countryName", "ascending");
         FileManager.saveCountries(copy, "countriesSortedByContryName.csv");
 
-        sort(countries, "population", "descending");
+        sort(copy, "population", "descending");
         FileManager.saveCountries(copy, "countriesSortedByPopulation.csv");
 
         // sort(countries, "population", "normal");
@@ -43,8 +43,9 @@ public class GDPDemo {
                 comparator = (c1, c2) -> c1.getCountryName().compareTo(c2.getCountryName());
                 break;
             case "population":
-                comparator = (c1, c2) -> Double.compare(c1.getPopulation(), c2.getPopulation());
+                comparator = (c1,c2)->Double.compare(c1.getPopulation(), c2.getPopulation());
                 break;
+
             default:
                 throw new IllegalArgumentException("Invalid field name: " + fieldName);
         }
